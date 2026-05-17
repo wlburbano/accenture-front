@@ -79,6 +79,7 @@ export class HomePage implements OnInit {
   currentStatus = signal<TaskFilterType>('all');
   selectedTaskForEdit = signal<Task | null>(null);
   isDescriptionEnabled = this._remoteConfig.isDescriptionEnabled;
+  isCategoryManagementEnabled = this._remoteConfig.isCategoryManagementEnabled;
 
   constructor() {
     addIcons({ trashOutline, checkmarkCircleOutline, addOutline, filterOutline, optionsOutline });

@@ -10,5 +10,6 @@ export const environment = {
   },
   remoteConfigDefaults: {
     allowTaskDescription: true,
+    allowCategoryManagement: true,
   },
 };

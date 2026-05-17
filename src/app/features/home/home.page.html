@@ -2,11 +2,13 @@
   <ion-toolbar color="primary">
     <ion-title>Accenture TaskManager</ion-title>
 
+    @if (isCategoryManagementEnabled()) {
     <ion-buttons slot="end">
       <ion-button (click)="categoryManagerModal.present()">
         <ion-icon slot="icon-only" name="options-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
+    }
   </ion-toolbar>
 
   <app-task-filters [categories]="categories()" (search)="onSearchChange($event)"

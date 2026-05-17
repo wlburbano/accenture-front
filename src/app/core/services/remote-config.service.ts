@@ -12,7 +12,13 @@ export class RemoteConfigService {
     environment.remoteConfigDefaults.allowTaskDescription,
   );
 
+  private _isCategoryManagementEnabled: WritableSignal<boolean> = signal(
+    environment.remoteConfigDefaults.allowCategoryManagement,
+  );
+
   public readonly isDescriptionEnabled: Signal<boolean> = this._isDescriptionEnabled.asReadonly();
+  public readonly isCategoryManagementEnabled: Signal<boolean> =
+    this._isCategoryManagementEnabled.asReadonly();
 
   constructor() {
     this.initialize();
@@ -28,6 +34,12 @@ export class RemoteConfigService {
 
       const remoteValue = getValue(this._remoteConfig, 'allowTaskDescription').asBoolean();
       this._isDescriptionEnabled.set(remoteValue);
+
+      const remoteCategoryValue = getValue(
+        this._remoteConfig,
+        'allowCategoryManagement',
+      ).asBoolean();
+      this._isCategoryManagementEnabled.set(remoteCategoryValue);
     } catch (error) {
       console.warn('No se pudo conectar a Remote Config Firebase:', error);
     }
