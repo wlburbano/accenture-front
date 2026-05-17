@@ -1,0 +1,18 @@
+.task-completed h2 {
+  text-decoration: line-through;
+  color: var(--ion-color-medium);
+  opacity: 0.6;
+  transition: all 0.3s ease;
+}
+
+.task-completed p {
+  text-decoration: line-through;
+  color: var(--ion-color-light-shade, #86888f);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.task-completed + ion-badge {
+  opacity: 0.5;
+  filter: grayscale(30%);
+}

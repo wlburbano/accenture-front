@@ -4,3 +4,5 @@ export interface Category {
   color: string;
   isSystem: boolean;
 }
+
+export type CreateCategoryPayload = Omit<Category, 'id' | 'isSystem'>;

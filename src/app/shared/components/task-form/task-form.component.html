@@ -1,0 +1,47 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <ion-list lines="none">
+
+    <ion-item class="ion-margin-bottom custom-input-item">
+      <ion-input label="¿Qué vas a hacer?" labelPlacement="floating" formControlName="title"
+        placeholder="Ej. Cambiar variables de entorno">
+      </ion-input>
+    </ion-item>
+
+    @if (isDescriptionEnabled()) {
+    <ion-item class="ion-margin-bottom custom-input-item">
+      <ion-textarea label="Notas o detalles" labelPlacement="floating" formControlName="description"
+        placeholder="Añade una descripción opcional...">
+      </ion-textarea>
+    </ion-item>
+    } @else {
+    <div class="ion-padding-horizontal ion-margin-bottom text-disabled-flag">
+      <ion-note color="warning">* Notas deshabilitadas remotamente vía Firebase *</ion-note>
+    </div>
+    }
+
+    @if (categories() && categories().length > 0) {
+    <ion-item class="custom-input-item">
+      <ion-select label="Asignar Categoría" placeholder="Ninguna" interface="popover" formControlName="categoryId">
+        <ion-select-option [value]="null">Ninguna</ion-select-option>
+        @for (category of categories(); track category.id) {
+        <ion-select-option [value]="category.id">{{ category.name }}</ion-select-option>
+        }
+      </ion-select>
+    </ion-item>
+    } @else {
+    <ion-item class="custom-input-item">
+      <ion-select label="Asignar Categoría" placeholder="Cargando categorías..." interface="popover" [disabled]="true">
+        <ion-select-option [value]="null">Ninguna</ion-select-option>
+      </ion-select>
+    </ion-item>
+    }
+
+  </ion-list>
+
+  <div class="ion-padding-top">
+    <ion-button expand="block" type="submit" [disabled]="taskForm.invalid">
+      <ion-icon slot="start" [name]="taskToEdit() ? 'create-outline' : 'add-outline'"></ion-icon>
+      {{ taskToEdit() ? 'Actualizar Tarea' : 'Guardar Tarea' }}
+    </ion-button>
+  </div>
+</form>

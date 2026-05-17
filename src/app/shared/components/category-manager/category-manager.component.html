@@ -1,0 +1,65 @@
+<div class="ion-padding">
+
+  <div class="ion-display-flex ion-justify-content-between ion-align-items-center ion-padding-bottom">
+    <h2 class="ion-no-margin" style="font-weight: 700;">
+      Gestionar Categorías
+    </h2>
+    <ion-button fill="clear" color="medium" (click)="close.emit()" class="ion-no-margin">
+      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <form [formGroup]="categoryForm" (ngSubmit)="onAddCategory()">
+    <h4 class="ion-no-margin ion-padding-top font-monospace"
+      style="font-size: 13px; letter-spacing: 1px; color: var(--ion-color-step-600);">
+      NUEVA CATEGORÍA
+    </h4>
+
+    <ion-item class="custom-input-item ion-margin-top" lines="none">
+      <ion-input label="Nombre" labelPlacement="floating" formControlName="name" placeholder="Ej. Universidad">
+      </ion-input>
+    </ion-item>
+
+    <div class="ion-display-flex ion-align-items-center ion-margin-vertical" style="gap: 12px; flex-wrap: wrap;">
+      @for (color of prebuiltColors; track color) {
+      <button type="button" [style.background]="color" [class.active]="categoryForm.value.color === color"
+        (click)="selectColor(color)"
+        style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid transparent; cursor: pointer;">
+      </button>
+      }
+      <input type="color" formControlName="color"
+        style="width: 40px; height: 36px; border: none; padding: 0; background: transparent; cursor: pointer;" />
+    </div>
+
+    <ion-button expand="block" type="submit" [disabled]="categoryForm.invalid" class="ion-margin-bottom">
+      <ion-icon slot="start" name="add-outline"></ion-icon>
+      Agregar Categoría
+    </ion-button>
+  </form>
+
+  <ion-list-header class="ion-no-padding ion-margin-top">
+    <ion-label style="font-weight: 600; color: var(--ion-color-step-700);">CATEGORÍAS ACTUALES</ion-label>
+  </ion-list-header>
+
+  <ion-list lines="inset" class="ion-no-padding" style="background: transparent;">
+    @for (category of categories(); track category.id) {
+    <ion-item class="ion-no-padding" style="--background: transparent;">
+      <div slot="start" [style.background]="category.color"
+        style="width: 14px; height: 14px; border-radius: 50%; margin-inline-end: 16px;"></div>
+
+      <ion-label>
+        <h2 style="font-weight: 500;">{{ category.name }}</h2>
+        @if (category.isSystem) {
+        <ion-note color="medium" style="font-size: 12px;">Sistema (Protegida)</ion-note>
+        }
+      </ion-label>
+
+      @if (!category.isSystem) {
+      <ion-button slot="end" fill="clear" color="danger" (click)="onDeleteCategory(category.id)">
+        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+      </ion-button>
+      }
+    </ion-item>
+    }
+  </ion-list>
+</div>

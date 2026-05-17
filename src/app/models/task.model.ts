@@ -6,3 +6,5 @@ export interface Task {
   categoryId?: string;
   createdAt: Date;
 }
+
+export type CreateTaskPayload = Omit<Task, 'id' | 'isCompleted' | 'createdAt'>;
