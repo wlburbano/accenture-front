@@ -1,0 +1,28 @@
+/* tslint:disable:no-unused-variable */
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+
+import { TaskFiltersComponent } from './task-filters.component';
+
+describe('TaskFiltersComponent', () => {
+  let component: TaskFiltersComponent;
+  let fixture: ComponentFixture<TaskFiltersComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ TaskFiltersComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(TaskFiltersComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

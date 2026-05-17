@@ -1,0 +1,17 @@
+<ion-toolbar color="light">
+  <ion-searchbar placeholder="Buscar tareas..." animated="true" debounce="300" (ionInput)="search.emit($event)">
+  </ion-searchbar>
+</ion-toolbar>
+
+<ion-toolbar color="light" class="ion-no-padding">
+  <ion-item lines="none" color="light">
+    <ion-icon name="filter-outline" slot="start" size="small"></ion-icon>
+    <ion-select placeholder="Todas las categorías" interface="popover" style="width: 100%;"
+      (ionChange)="categoryChange.emit($event)">
+      <ion-select-option [value]="null">Todas las categorías</ion-select-option>
+      @for (cat of categories(); track cat.id) {
+      <ion-select-option [value]="cat.id">{{ cat.name }}</ion-select-option>
+      }
+    </ion-select>
+  </ion-item>
+</ion-toolbar>
