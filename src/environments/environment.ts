@@ -8,4 +8,8 @@ export const environment = {
     messagingSenderId: '574079770627',
     appId: '1:574079770627:web:dedc214a7e94696a42ae36',
   },
+  remoteConfigDefaults: {
+    allowTaskDescription: true,
+    allowCategoryManagement: true,
+  },
 };
