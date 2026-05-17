@@ -28,7 +28,7 @@ import { CreateTaskPayload } from 'src/app/models/task.model';
 import { TaskService } from '../../core/services/task.service';
 import { TaskFilterType } from '../../models/task-filter.model';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Component, inject, signal, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, signal, ViewChild } from '@angular/core';
 import { CategoryService } from '../../core/services/category.service';
 import { RemoteConfigService } from 'src/app/core/services/remote-config.service';
 import { TaskFormComponent } from 'src/app/shared/components/task-form/task-form.component';
@@ -64,7 +64,7 @@ import { CategoryManagerComponent } from 'src/app/shared/components/category-man
     IonFab,
   ],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   private readonly _taskService = inject(TaskService);
   private readonly _categoryService = inject(CategoryService);
   private readonly _remoteConfig = inject(RemoteConfigService);
@@ -78,16 +78,13 @@ export class HomePage {
   selectedCategoryId = signal<string | undefined>(undefined);
   currentStatus = signal<TaskFilterType>('all');
   selectedTaskForEdit = signal<Task | null>(null);
-  isDescriptionEnabled = signal<boolean>(false);
+  isDescriptionEnabled = this._remoteConfig.isDescriptionEnabled;
 
   constructor() {
     addIcons({ trashOutline, checkmarkCircleOutline, addOutline, filterOutline, optionsOutline });
   }
 
-  ngOnInit(): void {
-    const flagValue = this._remoteConfig.getBool('allow_description');
-    this.isDescriptionEnabled.set(flagValue);
-  }
+  async ngOnInit(): Promise<void> {}
 
   onSaveTask(payload: CreateTaskPayload & { id?: string }): void {
     if (payload.id) {
