@@ -37,7 +37,7 @@
     </ion-segment>
   </div>
 
-  <app-task-list [tasks]="tasks()" [categories]="categories()" (toggle)="onToggleTask($event)"
+  <app-task-list [tasks]="tasks()" [categories]="categories()" (toggle)="onToggleTask($event.id, $event.isCompleted)"
     (delete)="onDeleteTask($event)" (edit)="onOpenEditModal($event, taskModal)">
   </app-task-list>
 
@@ -64,7 +64,7 @@
   </ion-modal>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="taskModal.present()">
+    <ion-fab-button (click)="openTaskModal()">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
