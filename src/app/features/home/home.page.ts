@@ -35,6 +35,7 @@ import { TaskFormComponent } from 'src/app/shared/components/task-form/task-form
 import { TaskListComponent } from 'src/app/shared/components/task-list/task-list.component';
 import { TaskFiltersComponent } from 'src/app/shared/components/task-filters/task-filters.component';
 import { CategoryManagerComponent } from 'src/app/shared/components/category-manager/category-manager.component';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-home',
@@ -68,6 +69,7 @@ export class HomePage implements OnInit {
   private readonly _taskService = inject(TaskService);
   private readonly _categoryService = inject(CategoryService);
   private readonly _remoteConfig = inject(RemoteConfigService);
+  private readonly _notificationService = inject(NotificationService);
 
   @ViewChild('taskModal') taskModal!: IonModal;
 
@@ -90,8 +92,10 @@ export class HomePage implements OnInit {
   onSaveTask(payload: CreateTaskPayload & { id?: string }): void {
     if (payload.id) {
       this._taskService.updateTask(payload.id, payload);
+      this._notificationService.presentToast('¡Tarea actualizada correctamente!', 'primary', 'top');
     } else {
       this._taskService.addTask(payload);
+      this._notificationService.presentToast('¡Nueva tarea creada con éxito!', 'success', 'top');
     }
 
     if (this.taskModal) {
@@ -105,12 +109,15 @@ export class HomePage implements OnInit {
     modalElement.present();
   }
 
-  onToggleTask(taskId: string): void {
+  onToggleTask(taskId: string, isCompleted: boolean): void {
     this._taskService.toggleTaskCompletion(taskId);
+    const mensaje = !isCompleted ? '¡Tarea completada!' : 'Tarea marcada como pendiente';
+    this._notificationService.presentToast(mensaje, 'success', 'top');
   }
 
   onDeleteTask(taskId: string): void {
     this._taskService.deleteTask(taskId);
+    this._notificationService.presentToast('Tarea eliminada correctamente', 'danger', 'top');
   }
 
   onStatusFilterChange(event: any): void {
@@ -133,5 +140,10 @@ export class HomePage implements OnInit {
   getCategoryData(categoryId?: string): Category | undefined {
     if (!categoryId) return undefined;
     return this.categories().find((category) => category.id === categoryId);
+  }
+
+  openTaskModal(): void {
+    this.selectedTaskForEdit.set(null);
+    this.taskModal.present();
   }
 }

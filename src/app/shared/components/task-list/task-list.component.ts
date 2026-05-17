@@ -40,7 +40,7 @@ export class TaskListComponent {
   tasks = input.required<Task[]>();
   categories = input.required<Category[]>();
 
-  toggle = output<string>();
+  toggle = output<{ id: string; isCompleted: boolean }>();
   delete = output<string>();
   edit = output<Task>();
 
@@ -53,8 +53,8 @@ export class TaskListComponent {
     return this.categories().find((cat) => cat.id === categoryId);
   }
 
-  onToggleTask(id: string): void {
-    this.toggle.emit(id);
+  onToggleTask(id: string, isCompleted: boolean): void {
+    this.toggle.emit({ id, isCompleted });
   }
 
   onDeleteTask(id: string): void {

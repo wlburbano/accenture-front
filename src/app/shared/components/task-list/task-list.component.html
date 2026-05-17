@@ -4,7 +4,7 @@
 
     <ion-item lines="full" button="true" detail="false" (click)="edit.emit(task)">
 
-      <ion-checkbox slot="start" [checked]="task.isCompleted" (ionChange)="onToggleTask(task.id)"
+      <ion-checkbox slot="start" [checked]="task.isCompleted" (ionChange)="onToggleTask(task.id, task.isCompleted)"
         (click)="$event.stopPropagation()" color="success"
         style="--border-radius: 50%; --checkbox-background-checked: var(--ion-color-success);">
       </ion-checkbox>
