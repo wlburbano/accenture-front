@@ -92,14 +92,10 @@ export class HomePage implements OnInit {
   onSaveTask(payload: CreateTaskPayload & { id?: string }): void {
     if (payload.id) {
       this._taskService.updateTask(payload.id, payload);
-      this._notificationService.presentToast(
-        '¡Tarea actualizada correctamente!',
-        'primary',
-        'middle',
-      );
+      this._notificationService.presentToast('¡Tarea actualizada correctamente!', 'primary', 'top');
     } else {
       this._taskService.addTask(payload);
-      this._notificationService.presentToast('¡Nueva tarea creada con éxito!', 'success', 'middle');
+      this._notificationService.presentToast('¡Nueva tarea creada con éxito!', 'success', 'top');
     }
 
     if (this.taskModal) {
